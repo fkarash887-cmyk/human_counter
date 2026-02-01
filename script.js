@@ -23,13 +23,20 @@ async function main() {
         predictions.forEach(p => {
             if (p.class === "person" && p.score > 0.5) {
                 const [x, y, w, h] = p.bbox;
-                ctx.strokeStyle = "red";
+                ctx.strokeStyle = "lime";
                 ctx.lineWidth = 3;
                 ctx.strokeRect(x, y, w, h);
+
+                ctx.fillStyle = "lime";
+                ctx.fillText(
+                    `person ${Math.round(p.score * 100)}%`,
+                    x,
+                    y > 10 ? y - 5 : 10
+                );
             }
         });
 
-        requestAnimationFrame(detect);
+        setTimeout(detect, 200);
     }
 
     detect();
