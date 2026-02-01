@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+video, canvas {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+canvas {
+    pointer-events: none;
+}
