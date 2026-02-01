@@ -6,14 +6,29 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* Видео и canvas совпадают по позиционированию */
 video, canvas {
     position: absolute;
-    top: 80px;
+    top: 80px;           /* отступ сверху */
     left: 50%;
     transform: translateX(-50%);
 }
 
+/* Canvas поверх видео */
 canvas {
     z-index: 10;
     pointer-events: none;
+}
+
+/* Счётчик людей поверх всего */
+#counter {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 24px;
+    z-index: 20;
 }
