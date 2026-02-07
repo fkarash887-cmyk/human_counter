@@ -1,34 +1,35 @@
 body {
     margin: 0;
-    text-align: center;
     background: #111;
-    color: white;
+    color: #0f0;
     font-family: Arial, sans-serif;
+    text-align: center;
 }
 
-/* Видео и canvas совпадают по позиционированию */
+h1 {
+    margin: 10px 0;
+}
+
+#counter {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+}
+
 video, canvas {
-    position: absolute;
-    top: 80px;           /* отступ сверху */
-    left: 50%;
-    transform: translateX(-50%);
+    width: 640px;
+    height: 480px;
+    border-radius: 8px;
 }
 
-/* Canvas поверх видео */
 canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
     z-index: 10;
     pointer-events: none;
-}
-
-/* Счётчик людей поверх всего */
-#counter {
-    position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.7);
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-size: 24px;
-    z-index: 20;
 }
