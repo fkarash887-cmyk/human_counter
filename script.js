@@ -4,12 +4,18 @@ const ctx = canvas.getContext("2d");
 const counter = document.getElementById("counter");
 
 async function main() {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const stream = await navigator.mediaDevices.getUserMedia({
+        video: true
+    });
     video.srcObject = stream;
 
-    await new Promise(r => video.onloadedmetadata = r);
+    await new Promise(resolve => {
+        video.onloadedmetadata = resolve;
+    });
+
     video.play();
 
+    // ВАЖНО: canvas = размеру видео
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
@@ -21,29 +27,29 @@ async function main() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // считаем людей
         const people = predictions.filter(
             p => p.class === "person" && p.score > 0.5
         );
 
         counter.textContent = `Людей: ${people.length}`;
 
+        ctx.strokeStyle = "lime";
+        ctx.fillStyle = "lime";
+        ctx.lineWidth = 3;
+        ctx.font = "16px Arial";
+
         people.forEach(p => {
             const [x, y, w, h] = p.bbox;
 
-            ctx.strokeStyle = "lime";
-            ctx.lineWidth = 3;
             ctx.strokeRect(x, y, w, h);
-
-            ctx.fillStyle = "lime";
             ctx.fillText(
                 `${Math.round(p.score * 100)}%`,
                 x,
-                y > 10 ? y - 5 : 10
+                y > 15 ? y - 5 : 15
             );
         });
 
-        setTimeout(detect, 200);
+        setTimeout(detect, 200); // ~5 FPS
     }
 
     detect();
